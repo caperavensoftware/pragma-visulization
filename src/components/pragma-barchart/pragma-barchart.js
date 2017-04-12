@@ -14,10 +14,12 @@ export class PragmaBarchart {
 
         this.margins = {
             top: 10,
-            right: 10,
+            right: 0,
             bottom: 10,
-            left: 10
-        }
+            left: 0,
+            innerPadding: 0.2,
+            outerPadding: 0.2
+        };
 
         this.createRectHandler = this.createRect.bind(this);
     }
@@ -46,7 +48,8 @@ export class PragmaBarchart {
     }
 
     initializeScale() {
-        const mappedDataValues = this.data.map((item) => item[this.yField]);
+        const mappedYValues = this.data.map((item) => item[this.yField]);
+        const mappedXValues = this.data.map((item) => item[this.xField]);
 
         // Set up pixel range
         const xRange = [this.margins.left, this.bounds.width - this.margins.right];
@@ -54,15 +57,17 @@ export class PragmaBarchart {
 
         // // Set up data range for min and max values
         // const xDomain = d3.range(0, this.data.length);  // how many items are we drawing?
-        // const yDomain = d3.extent(mappedDataValues);    // what is the min and max y values we are plotting?
+        // const yDomain = d3.extent(mappedYValues);    // what is the min and max y values we are plotting?
 
         // http://d3indepth.com/scales/
-        this.scaleX = d3.scaleOrdinal()
-            .domain([0, this.data.length])
-            .range([xRange, 0.3, 0.3]);
+        this.scaleX = d3.scaleBand()
+            .domain(mappedXValues)
+            .range(xRange)
+            .paddingInner(this.margins.innerPadding)
+            .paddingOuter(this.margins.outerPadding);
 
         this.scaleY = d3.scaleLinear()
-            .domain(d3.extent(mappedDataValues))
+            .domain(d3.extent(mappedYValues))
             .range(yRange);
     }
 
@@ -74,20 +79,28 @@ export class PragmaBarchart {
             .call(this.createRectHandler)
     }
 
+    getDataHeight(chart, data) {
+        return chart.scaleY(data[chart.yField]);
+    }
+
+    getDataY(chart, data) {
+        return chart.bounds.height - chart.margins.bottom - chart.scaleY(data[chart.yField]);
+    }
+
     createRect(selection) {
         const chart = this;
 
         selection.append('rect')
             .style("fill", "steelblue")
             .attr("height", (d) => {
-                return chart.scaleY(d[chart.yField]) + "px";
+                return chart.getDataHeight(chart, d);
             })
-            .attr("width", "10px")
+            .attr("width", chart.scaleX.bandwidth())
             .attr("x", (d, i) => {
-                return i * 10 + 2 + "px"
+                return chart.scaleX(d[chart.xField]);
             })
             .attr("y", (d) => {
-                return chart.bounds.height - chart.margins.bottom - chart.scaleY(d[chart.yField]) + "px"
+                return chart.getDataY(chart, d)
             })
     }
 }
