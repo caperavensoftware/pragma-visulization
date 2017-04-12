@@ -16,7 +16,12 @@ export class Welcome {
             {
                 title: "Closed",
                 value: 100
+            },
+            {
+                title: "Cancelled",
+                value: 200
             }
+
         ]
     }
 }
