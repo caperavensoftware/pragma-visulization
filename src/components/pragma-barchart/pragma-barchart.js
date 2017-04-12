@@ -69,10 +69,15 @@ export class PragmaBarchart {
     drawChartArea() {
         const chart = this;
 
-        this.svg.selectAll("rect")
+        const selection = this.svg.selectAll("rect")
             .data(this.data)
-            .enter()
-            .append("rect")
+            .enter();
+
+        this.addBar(selection, chart, 500, 100);
+    }
+
+    addBar(selection, chart, animationDuration, animationDelay) {
+        selection.append("rect")
             .style("fill", "steelblue")
             .attr("x", (data) => {
                 return chart.scaleX(data[chart.xField]);
@@ -81,9 +86,9 @@ export class PragmaBarchart {
             .attr("y", chart.bounds.height - chart.margins.bottom)
             .attr("height", 0)
             .transition()
-            .duration(500)
+            .duration(animationDuration)
             .delay((d, i) => {
-                return i * 100;
+                return i * animationDelay;
             })
             .attr("height", data => {
                 return chart.getBarHeight(chart, data);
