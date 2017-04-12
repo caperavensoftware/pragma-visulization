@@ -74,15 +74,22 @@ export class PragmaBarchart {
             .enter()
             .append("rect")
             .style("fill", "steelblue")
+            .attr("x", (data) => {
+                return chart.scaleX(data[chart.xField]);
+            })
+            .attr("width", chart.scaleX.bandwidth())
+            .attr("y", chart.bounds.height - chart.margins.bottom)
+            .attr("height", 0)
+            .transition()
+            .duration(500)
+            .delay((d, i) => {
+                return i * 100;
+            })
             .attr("height", data => {
                 return chart.getBarHeight(chart, data);
             })
             .attr("y", data => {
                 return chart.getBarY(chart, data);
-            })
-            .attr("width", chart.scaleX.bandwidth())
-            .attr("x", (data) => {
-                return chart.scaleX(data[chart.xField]);
             })
     }
 
