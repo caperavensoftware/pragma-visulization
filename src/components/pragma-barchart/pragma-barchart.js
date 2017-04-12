@@ -1,5 +1,4 @@
 import {customElement, inject, bindable} from 'aurelia-framework';
-
 import * as d3 from 'd3';
 
 @customElement('pragma-barchart')
