@@ -24,4 +24,21 @@ export class Welcome {
 
         ]
     }
+
+    addMore() {
+        this.data[0].value = 30;
+        this.data.push({
+            title: "Paused",
+            value: 5
+        })
+    }
+
+    removeSum() {
+        this.data[0].value = 10;
+        this.data.splice(4, 1);
+    }
+
+    update() {
+        this.chart.au["pragma-barchart"].viewModel.update();
+    }
 }

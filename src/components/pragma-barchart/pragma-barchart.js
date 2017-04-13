@@ -18,7 +18,9 @@ export class PragmaBarchart {
             bottom: 40
         };
 
-        this.numberOfTicks = 5;
+        this.numberOfTicks = 15;
+        this.animationDuration = 500;
+        this.animationDelay = 100;
     }
 
     attached() {
@@ -28,7 +30,63 @@ export class PragmaBarchart {
         this.initialize();
         this.drawXAxis();
         this.drawYAxis();
-        this.drawChartArea();
+        this.drawInitialChart();
+    }
+
+    update() {
+        this.initialize();
+        const chart = this;
+
+        const dataJoin = this.svg.selectAll("rect")
+            .data(this.data);
+
+        const enter = dataJoin
+            .enter()
+                .append("rect")
+                .style("fill", "steelblue")
+                .attr("x", (data) => {
+                    return chart.scaleX(data[chart.xField]);
+                })
+                .attr("width", chart.scaleX.bandwidth())
+                .attr("y", chart.bounds.height - chart.margins.bottom)
+                .attr("height", 0)
+                .transition()
+                .duration(this.animationDuration)
+                .delay((d, i) => {
+                    return i * this.animationDelay;
+                })
+                .attr("height", data => {
+                    return chart.getBarHeight(chart, data);
+                })
+                .attr("y", data => {
+                    return chart.getBarY(chart, data);
+                });
+
+        dataJoin
+            .merge(enter)
+                .transition()
+                .duration(this.animationDuration)
+                // .delay((d, i) => {
+                //     return i * this.animationDelay;
+                // })
+                .attr("height", data => {
+                    return chart.getBarHeight(chart, data);
+                })
+                .attr("y", data => {
+                    return chart.getBarY(chart, data);
+                })
+                .attr("x", (data) => {
+                    return chart.scaleX(data[chart.xField]);
+                })
+                .attr("width", chart.scaleX.bandwidth());
+
+        dataJoin
+            .exit()
+                .transition()
+                .duration(this.animationDuration)
+                .attr("height", 0)
+                .attr("y", chart.bounds.height - chart.margins.bottom)
+                .remove();
     }
 
     initialize() {
@@ -65,36 +123,31 @@ export class PragmaBarchart {
             .call(yAxis)
     }
 
-    drawChartArea() {
+    drawInitialChart() {
         const chart = this;
 
-        const selection = this.svg.selectAll("rect")
+        const rect = this.svg.selectAll("rect")
             .data(this.data)
-            .enter();
-
-        this.addBar(selection, chart, 500, 100);
-    }
-
-    addBar(selection, chart, animationDuration, animationDelay) {
-        selection.append("rect")
-            .style("fill", "steelblue")
-            .attr("x", (data) => {
-                return chart.scaleX(data[chart.xField]);
-            })
-            .attr("width", chart.scaleX.bandwidth())
-            .attr("y", chart.bounds.height - chart.margins.bottom)
-            .attr("height", 0)
-            .transition()
-            .duration(animationDuration)
-            .delay((d, i) => {
-                return i * animationDelay;
-            })
-            .attr("height", data => {
-                return chart.getBarHeight(chart, data);
-            })
-            .attr("y", data => {
-                return chart.getBarY(chart, data);
-            })
+            .enter()
+                .append("rect")
+                .style("fill", "steelblue")
+                .attr("x", (data) => {
+                    return chart.scaleX(data[chart.xField]);
+                })
+                .attr("width", chart.scaleX.bandwidth())
+                .attr("y", chart.bounds.height - chart.margins.bottom)
+                .attr("height", 0)
+                .transition()
+                .duration(this.animationDuration)
+                .delay((d, i) => {
+                    return i * this.animationDelay;
+                })
+                .attr("height", data => {
+                    return chart.getBarHeight(chart, data);
+                })
+                .attr("y", data => {
+                    return chart.getBarY(chart, data);
+                });
     }
 
     getBarHeight(chart, data) {

@@ -1,5 +1,17 @@
 <template>
     <require from="./../../components/pragma-barchart/pragma-barchart"></require>
     <h1>Welcome</h1>
-    <pragma-barchart data.bind="data" x-field="title" y-field="value"></pragma-barchart>
+    <pragma-barchart data.bind="data" x-field="title" y-field="value" ref="chart"></pragma-barchart>
+
+    <button click.delegate="addMore()">Add More</button>
+    <button click.delegate="removeSum()">Remove Some</button>
+    <button click.delegate="update()">Update</button>
+
+    <ul>
+        <li repeat.for="item of data">
+            <span>${item.title}</span>
+            <span> = </span>
+            <span>${item.value}</span>
+        </li>
+    </ul>
 </template>
