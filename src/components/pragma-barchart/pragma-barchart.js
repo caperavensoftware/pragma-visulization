@@ -18,7 +18,7 @@ export class PragmaBarchart {
             bottom: 40
         };
 
-        this.numberOfTicks = 15;
+        this.numberOfTicks = 5;
         this.animationDuration = 500;
         this.animationDelay = 100;
     }
@@ -66,9 +66,9 @@ export class PragmaBarchart {
             .merge(enter)
                 .transition()
                 .duration(this.animationDuration)
-                // .delay((d, i) => {
-                //     return i * this.animationDelay;
-                // })
+                .delay((d, i) => {
+                    return i * this.animationDelay;
+                })
                 .attr("height", data => {
                     return chart.getBarHeight(chart, data);
                 })
