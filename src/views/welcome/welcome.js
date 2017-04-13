@@ -29,7 +29,7 @@ export class Welcome {
         this.data[0].value = 30;
         this.data.push({
             title: "Paused",
-            value: 5
+            value: 250
         })
     }
 
