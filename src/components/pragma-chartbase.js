@@ -6,7 +6,8 @@ export class PragmaChartbase {
     @bindable data;
     @bindable xField;
     @bindable yField;
-    @bindable numberOfTicks;
+    @bindable numberOfYTicks;
+    @bindable numberOfXTicks;
 
     element;
     svg;
@@ -15,6 +16,9 @@ export class PragmaChartbase {
     yAxis;
     scaleX;
     scaleY;
+
+    xAxisType;
+    xLabelFormatter;
 
     constructor(element) {
         this.element = element;
@@ -25,9 +29,9 @@ export class PragmaChartbase {
             bottom: 40
         };
 
-        this.numberOfTicks = 5;
         this.animationDuration = 500;
         this.animationDelay = 100;
+        this.xAxisType = axisType.standard;
     }
 
     attached() {
@@ -50,49 +54,89 @@ export class PragmaChartbase {
     }
 
     initialize() {
-        const mappedYValues = [0].concat(this.data.map((item) => item[this.yField]));
+        if (this.yField) {
+            const mappedYValues = [0].concat(this.data.map((item) => item[this.yField]));
+
+            this.scaleY = d3.scaleLinear()
+                .domain(d3.extent(mappedYValues))
+                .range([this.bounds.height - this.margins.top - this.margins.bottom, 0]);
+
+            this.yAxis = d3.axisLeft(this.scaleY);
+
+            if (this.numberOfYTicks) {
+                this.yAxis.ticks(this.numberOfYTicks);
+            }
+        }
+
+        this.initializeXAxis();
+    }
+
+    initializeXAxis() {
         const mappedXValues = this.data.map((item) => item[this.xField]);
 
-        this.scaleX = d3.scaleBand()
-            .domain(mappedXValues)
-            .range([this.margins.left, this.bounds.width])
-            .paddingOuter(0.2)
-            .paddingInner(0.2);
-
-        this.scaleY = d3.scaleLinear()
-            .domain(d3.extent(mappedYValues))
-            .range([this.bounds.height - this.margins.top - this.margins.bottom, 0]);
+        if (this.xAxisType === axisType.standard && this.xField) {
+            this.scaleX = d3.scaleBand()
+                .domain(mappedXValues)
+                .range([this.margins.left, this.bounds.width])
+                .paddingOuter(0.2)
+                .paddingInner(0.2);
+        }
+        else {
+            this.scaleX = d3.scaleTime()
+                .domain(mappedXValues)
+                .range([this.margins.left, this.bounds.width])
+        }
 
         this.xAxis = d3.axisBottom(this.scaleX);
-        this.yAxis = d3.axisLeft(this.scaleY).ticks(this.numberOfTicks);
+
+        if (this.numberOfXTicks) {
+            this.xAxis.ticks(this.numberOfXTicks);
+        }
+
+        if (this.xLabelFormatter) {
+            this.xAxis.tickFormat(this.xLabelFormatter);
+        }
     }
 
     drawInitialAxis() {
         const yPosition = this.bounds.height - this.margins.bottom;
 
-        this.svg.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", `translate(0, ${yPosition})`)
-            .call(this.xAxis);
+        if (this.xAxis) {
+            this.svg.append("g")
+                .attr("class", "x-axis")
+                .attr("transform", `translate(0, ${yPosition})`)
+                .call(this.xAxis);
+        }
 
-        this.svg.append("g")
-            .attr("class", "y-axis")
-            .attr("transform", `translate(${this.margins.left}, ${this.margins.top})`)
-            .call(this.yAxis)
+        if (this.yAxis) {
+            this.svg.append("g")
+                .attr("class", "y-axis")
+                .attr("transform", `translate(${this.margins.left}, ${this.margins.top})`)
+                .call(this.yAxis)
+        }
     }
 
     // override this with your updates
     update() {
         this.initialize();
 
-        this.svg.select(".x-axis")
-            .transition()
-            .duration(this.animationDuration)
-            .call(this.xAxis);
+        if (this.xAxis) {
+            this.svg.select(".x-axis")
+                .transition()
+                .duration(this.animationDuration)
+                .call(this.xAxis);
+        }
 
-        this.svg.select(".y-axis")
-            .transition()
-            .duration(this.animationDuration)
-            .call(this.yAxis);
+        if (this.yAxis) {
+            this.svg.select(".y-axis")
+                .transition()
+                .duration(this.animationDuration)
+                .call(this.yAxis);
+        }
     }
 }
+
+export const axisType = {
+    standard: 0,
+    timeline: 1
+};

@@ -7,7 +7,8 @@ export class PragmaBarchart extends PragmaChartbase {
     @bindable data;
     @bindable xField;
     @bindable yField;
-    @bindable numberOfTicks;
+    @bindable numberOfYTicks;
+    @bindable numberOfXTicks;
 
     constructor(element) {
         super(element);

@@ -1,6 +1,7 @@
 <template>
     <require from="./../../components/pragma-barchart/pragma-barchart"></require>
     <require from="./../../components/pragma-linechart/pragma-linechart"></require>
+    <require from="./../../components/pragma-scatterchart/pragma-scatterchart"></require>
 
     <h1>Welcome</h1>
     <pragma-barchart data.bind="data" x-field="title" y-field="value" ref="barchart"></pragma-barchart>
@@ -9,6 +10,8 @@
     <button click.delegate="addMore()">Add More</button>
     <button click.delegate="removeSum()">Remove Some</button>
     <button click.delegate="update()">Update</button>
+
+    <pragma-scatterchart data.bind="dateData" x-field="value"></pragma-scatterchart>
 
     <ul>
         <li repeat.for="item of data">
