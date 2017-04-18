@@ -139,7 +139,6 @@ export class PragmaChartbase {
         }
     }
 
-    // override this with your updates
     update() {
         this.initialize();
 
