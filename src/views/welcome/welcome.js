@@ -30,12 +30,16 @@ export class Welcome {
         this.data.push({
             title: "Paused",
             value: 250
-        })
+        });
+
+        this.update();
     }
 
     removeSum() {
         this.data[0].value = 10;
         this.data.splice(4, 1);
+
+        this.update();
     }
 
     update() {
