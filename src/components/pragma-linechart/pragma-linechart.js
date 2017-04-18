@@ -26,20 +26,19 @@ export class PragmaLinechart extends PragmaChartbase{
                 return chart.scaleY(data[chart.yField]) + chart.margins.top;
             });
 
-        console.log(line(this.data));
+        const dataJoin = this.svg.selectAll(".line")
+            .data([this.data]);
 
-        const dataJoin = this.svg.selectAll("path")
-            .data(this.data);
-
-        const enter = dataJoin
+        dataJoin
             .enter()
-            .append('path')
-            .attr("class", "line")
-            .transition()
-            .duration(this.animationDuration)
-            .delay((d, i) => {
-                return i * this.animationDelay;
-            })
-            .attr("d", line(this.data));
+                .append('path')
+                .classed("line", true)
+            .merge(dataJoin)
+                .transition()
+                .duration(this.animationDuration)
+                .delay((d, i) => {
+                    return i * this.animationDelay;
+                })
+                .attr("d", line(this.data))
     }
 }
