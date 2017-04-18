@@ -13,6 +13,9 @@ export class PragmaLinechart extends PragmaChartbase {
     @bindable xTextAnchor;
     @bindable yLabelRotation;
     @bindable yTextAnchor;
+    @bindable marginTop;
+    @bindable marginBottom;
+    @bindable marginLeft;
 
     constructor(element) {
         super(element);
@@ -28,7 +31,7 @@ export class PragmaLinechart extends PragmaChartbase {
                 return chart.scaleX(data[chart.xField]) + xoffset;
             })
             .y(data => {
-                return chart.scaleY(data[chart.yField]) + chart.margins.top;
+                return chart.scaleY(data[chart.yField]) + chart.marginTop;
             });
 
         const dataJoin = this.svg.selectAll(".line")

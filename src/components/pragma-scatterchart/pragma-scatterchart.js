@@ -14,6 +14,10 @@ export class PragmaScatterchart extends PragmaChartbase {
     @bindable xTextAnchor;
     @bindable yLabelRotation;
     @bindable yTextAnchor;
+    @bindable marginTop;
+    @bindable marginBottom;
+    @bindable marginLeft;
+
     constructor(element) {
         super(element);
         this.xAxisType = axisType.timeline;

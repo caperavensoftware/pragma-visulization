@@ -13,6 +13,9 @@ export class PragmaBarchart extends PragmaChartbase {
     @bindable xTextAnchor;
     @bindable yLabelRotation;
     @bindable yTextAnchor;
+    @bindable marginTop;
+    @bindable marginBottom;
+    @bindable marginLeft;
 
     constructor(element) {
         super(element);
@@ -22,18 +25,17 @@ export class PragmaBarchart extends PragmaChartbase {
         super.update();
         const chart = this;
 
-        const dataJoin = this.svg.selectAll("rect")
+        const dataJoin = this.svg.selectAll(".chart-bar")
             .data(this.data);
 
         const enter = dataJoin
             .enter()
                 .append("rect")
-                .style("fill", "steelblue")
                 .attr("x", (data) => {
                     return chart.scaleX(data[chart.xField]);
                 })
                 .attr("width", chart.scaleX.bandwidth())
-                .attr("y", chart.bounds.height - chart.margins.bottom)
+                .attr("y", chart.bounds.height - chart.marginBottom)
                 .attr("height", 0)
                 .transition()
                 .duration(this.animationDuration)
@@ -45,7 +47,9 @@ export class PragmaBarchart extends PragmaChartbase {
                 })
                 .attr("y", data => {
                     return chart.getBarY(chart, data);
-                });
+                })
+                .attr("class", "chart-bar");
+
 
         dataJoin
             .merge(enter)
@@ -70,7 +74,7 @@ export class PragmaBarchart extends PragmaChartbase {
                 .transition()
                 .duration(this.animationDuration)
                 .attr("height", 0)
-                .attr("y", chart.bounds.height - chart.margins.bottom)
+                .attr("y", chart.bounds.height - chart.marginBottom)
                 .remove();
     }
 
@@ -79,6 +83,6 @@ export class PragmaBarchart extends PragmaChartbase {
     }
 
     getBarY(chart, data) {
-        return chart.scaleY(data[chart.yField]) + chart.margins.top;
+        return chart.scaleY(data[chart.yField]) + chart.marginTop;
     }
 }
