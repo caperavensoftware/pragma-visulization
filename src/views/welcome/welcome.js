@@ -39,6 +39,7 @@ export class Welcome {
     }
 
     update() {
-        this.chart.au["pragma-barchart"].viewModel.update();
+        this.barchart.au["pragma-barchart"].viewModel.update();
+        this.linechart.au["pragma-linechart"].viewModel.update();
     }
 }

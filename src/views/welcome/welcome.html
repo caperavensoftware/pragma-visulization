@@ -1,7 +1,10 @@
 <template>
     <require from="./../../components/pragma-barchart/pragma-barchart"></require>
+    <require from="./../../components/pragma-linechart/pragma-linechart"></require>
+
     <h1>Welcome</h1>
-    <pragma-barchart data.bind="data" x-field="title" y-field="value" ref="chart"></pragma-barchart>
+    <pragma-barchart data.bind="data" x-field="title" y-field="value" ref="barchart"></pragma-barchart>
+    <pragma-linechart data.bind="data" x-field="title" y-field="value" ref="linechart"></pragma-linechart>
 
     <button click.delegate="addMore()">Add More</button>
     <button click.delegate="removeSum()">Remove Some</button>
