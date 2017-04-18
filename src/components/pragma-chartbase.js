@@ -19,6 +19,11 @@ export class PragmaChartbase {
 
     xAxisType;
     xLabelFormatter;
+    @bindable xLabelRotation;
+    @bindable xTextAnchor;
+
+    @bindable yLabelRotation;
+    @bindable yTextAnchor;
 
     constructor(element) {
         this.element = element;
@@ -32,6 +37,7 @@ export class PragmaChartbase {
         this.animationDuration = 500;
         this.animationDelay = 100;
         this.xAxisType = axisType.standard;
+        this.textAnchor = "end";
     }
 
     attached() {
@@ -54,6 +60,11 @@ export class PragmaChartbase {
     }
 
     initialize() {
+        this.initializeYAxis();
+        this.initializeXAxis();
+    }
+
+    initializeYAxis() {
         if (this.yField) {
             const mappedYValues = [0].concat(this.data.map((item) => item[this.yField]));
 
@@ -67,8 +78,6 @@ export class PragmaChartbase {
                 this.yAxis.ticks([this.numberOfYTicks]);
             }
         }
-
-        this.initializeXAxis();
     }
 
     initializeXAxis() {
@@ -83,7 +92,7 @@ export class PragmaChartbase {
         }
         else {
             this.scaleX = d3.scaleTime()
-                .domain(mappedXValues)
+                .domain(d3.extent(mappedXValues))
                 .range([this.margins.left, this.bounds.width])
         }
 
@@ -104,8 +113,16 @@ export class PragmaChartbase {
         if (this.xAxis) {
             this.svg.append("g")
                 .attr("class", "x-axis")
-                .attr("transform", `translate(0, ${yPosition})`)
+                .attr("transform", _ => {
+                    return `translate(0, ${yPosition})`;
+                })
                 .call(this.xAxis);
+        }
+
+        if (this.xLabelRotation) {
+            this.svg.selectAll('.x-axis text')
+                .attr("text-anchor", this.xTextAnchor)
+                .attr("transform", `rotate(${this.xLabelRotation})`);
         }
 
         if (this.yAxis) {
@@ -113,6 +130,12 @@ export class PragmaChartbase {
                 .attr("class", "y-axis")
                 .attr("transform", `translate(${this.margins.left}, ${this.margins.top})`)
                 .call(this.yAxis)
+        }
+
+        if (this.yLabelRotation) {
+            this.svg.selectAll('.y-axis text')
+                .attr("text-anchor", this.yTextAnchor)
+                .attr("transform", `rotate(${this.yLabelRotation})`);
         }
     }
 
@@ -125,6 +148,12 @@ export class PragmaChartbase {
                 .transition()
                 .duration(this.animationDuration)
                 .call(this.xAxis);
+
+            if (this.xLabelRotation) {
+                this.svg.selectAll('.x-axis text')
+                    .attr("text-anchor", this.xTextAnchor)
+                    .attr("transform", `rotate(${this.xLabelRotation})`);
+            }
         }
 
         if (this.yAxis) {
@@ -132,6 +161,12 @@ export class PragmaChartbase {
                 .transition()
                 .duration(this.animationDuration)
                 .call(this.yAxis);
+
+            if (this.yLabelRotation) {
+                this.svg.selectAll('.y-axis text')
+                    .attr("text-anchor", this.yTextAnchor)
+                    .attr("transform", `rotate(${this.yLabelRotation})`);
+            }
         }
     }
 }

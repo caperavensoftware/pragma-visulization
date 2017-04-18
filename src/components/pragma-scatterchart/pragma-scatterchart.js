@@ -10,7 +10,10 @@ export class PragmaScatterchart extends PragmaChartbase {
     @bindable yField;
     @bindable numberOfYTicks;
     @bindable numberOfXTicks;
-    
+    @bindable xLabelRotation;
+    @bindable xTextAnchor;
+    @bindable yLabelRotation;
+    @bindable yTextAnchor;
     constructor(element) {
         super(element);
         this.xAxisType = axisType.timeline;

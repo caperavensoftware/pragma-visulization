@@ -9,6 +9,10 @@ export class PragmaLinechart extends PragmaChartbase {
     @bindable yField;
     @bindable numberOfYTicks;
     @bindable numberOfXTicks;
+    @bindable xLabelRotation;
+    @bindable xTextAnchor;
+    @bindable yLabelRotation;
+    @bindable yTextAnchor;
 
     constructor(element) {
         super(element);
