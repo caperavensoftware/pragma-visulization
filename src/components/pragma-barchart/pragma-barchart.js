@@ -28,7 +28,8 @@ export class PragmaBarchart {
         this.bounds = this.element.getBoundingClientRect();
 
         this.initialize();
-        this.drawInitialChart();
+        this.drawInitialAxis();
+        this.update();
     }
 
     update() {
@@ -115,32 +116,7 @@ export class PragmaBarchart {
         this.yAxis = d3.axisLeft(this.scaleY).ticks(this.numberOfTicks);
     }
 
-    drawInitialChart() {
-        const chart = this;
-
-        const rect = this.svg.selectAll("rect")
-            .data(this.data)
-            .enter()
-                .append("rect")
-                .style("fill", "steelblue")
-                .attr("x", (data) => {
-                    return chart.scaleX(data[chart.xField]);
-                })
-                .attr("width", chart.scaleX.bandwidth())
-                .attr("y", chart.bounds.height - chart.margins.bottom)
-                .attr("height", 0)
-                .transition()
-                .duration(this.animationDuration)
-                .delay((d, i) => {
-                    return i * this.animationDelay;
-                })
-                .attr("height", data => {
-                    return chart.getBarHeight(chart, data);
-                })
-                .attr("y", data => {
-                    return chart.getBarY(chart, data);
-                });
-
+    drawInitialAxis() {
         const yPosition = this.bounds.height - this.margins.bottom;
 
         this.svg.append("g")
