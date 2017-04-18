@@ -5,7 +5,7 @@
 
     <h1>Welcome</h1>
     <pragma-barchart data.bind="data" x-field="title" y-field="value" ref="barchart"></pragma-barchart>
-    <pragma-linechart data.bind="data" x-field="title" y-field="value" ref="linechart"></pragma-linechart>
+    <pragma-linechart data.bind="data" x-field="title" y-field="value" number-of-y-ticks="2" ref="linechart"></pragma-linechart>
 
     <button click.delegate="addMore()">Add More</button>
     <button click.delegate="removeSum()">Remove Some</button>

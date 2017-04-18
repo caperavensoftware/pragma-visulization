@@ -64,7 +64,7 @@ export class PragmaChartbase {
             this.yAxis = d3.axisLeft(this.scaleY);
 
             if (this.numberOfYTicks) {
-                this.yAxis.ticks(this.numberOfYTicks);
+                this.yAxis.ticks([this.numberOfYTicks]);
             }
         }
 
@@ -90,7 +90,7 @@ export class PragmaChartbase {
         this.xAxis = d3.axisBottom(this.scaleX);
 
         if (this.numberOfXTicks) {
-            this.xAxis.ticks(this.numberOfXTicks);
+            this.xAxis.ticks([this.numberOfXTicks]);
         }
 
         if (this.xLabelFormatter) {
