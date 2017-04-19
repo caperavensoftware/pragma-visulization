@@ -4,14 +4,14 @@
     <require from="./../../components/pragma-scatterchart/pragma-scatterchart"></require>
 
     <h1>Welcome</h1>
-    <pragma-barchart data.bind="data" x-field="title" y-field="value" ref="barchart" y-label-rotation="-45" y-text-anchor="end"></pragma-barchart>
-    <pragma-linechart data.bind="data" x-field="title" y-field="value" number-of-y-ticks="2" ref="linechart"></pragma-linechart>
+    <pragma-barchart ref="barchart"  data.bind="data" x-field="title" id-field="id" y-field="value" y-label-rotation="-45" y-text-anchor="end"></pragma-barchart>
+    <pragma-linechart ref="linechart" data.bind="data" x-field="title" y-field="value" number-of-y-ticks="2" ></pragma-linechart>
+    <pragma-scatterchart rel="scatterchart" data.bind="dateData" y-field="time" id-field="id" x-field="date" x-label-rotation="-45" x-text-anchor="end"></pragma-scatterchart>
 
     <button click.delegate="addMore()">Add More</button>
     <button click.delegate="removeSum()">Remove Some</button>
     <button click.delegate="update()">Update</button>
 
-    <pragma-scatterchart data.bind="dateData" x-field="value" x-label-rotation="-45" x-text-anchor="end" margin-bottom="100" margin-left="0"></pragma-scatterchart>
 
     <ul>
         <li repeat.for="item of data">

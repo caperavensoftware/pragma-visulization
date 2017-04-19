@@ -7,6 +7,7 @@ export class PragmaBarchart extends PragmaChartbase {
     @bindable data;
     @bindable xField;
     @bindable yField;
+    @bindable idField;
     @bindable numberOfYTicks;
     @bindable numberOfXTicks;
     @bindable xLabelRotation;
@@ -28,6 +29,14 @@ export class PragmaBarchart extends PragmaChartbase {
         const dataJoin = this.svg.selectAll(".chart-bar")
             .data(this.data);
 
+        dataJoin
+            .exit()
+            .transition()
+            .duration(this.animationDuration)
+            .attr("height", 0)
+            .attr("y", chart.bounds.height - chart.marginBottom)
+            .remove();
+
         const enter = dataJoin
             .enter()
                 .append("rect")
@@ -48,8 +57,10 @@ export class PragmaBarchart extends PragmaChartbase {
                 .attr("y", data => {
                     return chart.getBarY(chart, data);
                 })
-                .attr("class", "chart-bar");
-
+                .attr("class", "chart-bar")
+                .attr("data-id", data => {
+                    chart.idField ? data[chart.idField] : -1
+                });
 
         dataJoin
             .merge(enter)
@@ -69,13 +80,6 @@ export class PragmaBarchart extends PragmaChartbase {
                 })
                 .attr("width", chart.scaleX.bandwidth());
 
-        dataJoin
-            .exit()
-                .transition()
-                .duration(this.animationDuration)
-                .attr("height", 0)
-                .attr("y", chart.bounds.height - chart.marginBottom)
-                .remove();
     }
 
     getBarHeight(chart, data) {

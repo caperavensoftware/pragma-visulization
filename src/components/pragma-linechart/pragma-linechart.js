@@ -7,6 +7,7 @@ export class PragmaLinechart extends PragmaChartbase {
     @bindable data;
     @bindable xField;
     @bindable yField;
+    @bindable idField;
     @bindable numberOfYTicks;
     @bindable numberOfXTicks;
     @bindable xLabelRotation;
@@ -41,6 +42,9 @@ export class PragmaLinechart extends PragmaChartbase {
             .enter()
                 .append('path')
                 .classed("line", true)
+                .attr("data-id", data => {
+                    chart.idField ? data[chart.idField] : -1
+                })
             .merge(dataJoin)
                 .transition()
                 .duration(this.animationDuration)

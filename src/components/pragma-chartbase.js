@@ -6,6 +6,7 @@ export class PragmaChartbase {
     @bindable data;
     @bindable xField;
     @bindable yField;
+    @bindable idField;
     @bindable numberOfYTicks;
     @bindable numberOfXTicks;
     @bindable marginTop;
@@ -36,7 +37,7 @@ export class PragmaChartbase {
         this.marginBottom = 40;
 
         this.animationDuration = 500;
-        this.animationDelay = 100;
+        this.animationDelay = 50;
         this.xAxisType = axisType.standard;
         this.textAnchor = "end";
     }
