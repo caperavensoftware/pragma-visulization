@@ -69,6 +69,7 @@ export class PragmaScatterchart extends PragmaChartbase {
 
         dataJoin
             .merge(enter)
+            .transition()
             .duration(this.animationDuration)
             .delay((d, i) => {
                 return i * this.animationDelay;

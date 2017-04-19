@@ -111,6 +111,15 @@ export class Welcome {
             })
         }
 
+        for (let i = 0; i < 5; i++) {
+            const date = new Date(+(new Date()) - Math.floor(Math.random()*10000000000));
+            const time = Math.floor((Math.random() * 24) + 1);
+            const item = this.dateData[i];
+
+            item.date = date;
+            item.time = time;
+        }
+
         this.update();
     }
 
