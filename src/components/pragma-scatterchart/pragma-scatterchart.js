@@ -68,6 +68,7 @@ export class PragmaScatterchart extends PragmaChartbase {
                     });
 
         dataJoin
+            .classed("changed", true)
             .merge(enter)
             .transition()
             .duration(this.animationDuration)
@@ -80,5 +81,8 @@ export class PragmaScatterchart extends PragmaChartbase {
             .attr("cy", data => {
                 return chart.scaleY(data[chart.yField]) + chart.marginTop;
             });
+
+        this.svg.selectAll(".changed")
+            .classed("changed", false)
     }
 }

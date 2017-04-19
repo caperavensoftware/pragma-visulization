@@ -38,6 +38,12 @@ pragma-scatterchart {
     margin: 1rem;
 
   .shape {
+    will-change: fill;
+    transition: fill 1s;
     fill: #FB0;
+  }
+
+  .changed {
+    fill: red;
   }
 }
