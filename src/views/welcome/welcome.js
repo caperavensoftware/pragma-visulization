@@ -4,7 +4,7 @@ export class Welcome {
             {
                 id: 0,
                 title: "In Progress",
-                value: 10
+                value: 40
             },
             {
                 id: 1,
@@ -25,6 +25,193 @@ export class Welcome {
                 id: 4,
                 title: "Cancelled",
                 value: 200
+            }
+        ];
+        
+        this.statusOverTime = [
+            {
+                date: new Date(2017, 4, 1),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 2),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 3),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 4),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 5),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 6),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 7),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 8),
+                InProgress: 10,
+                AwaitingApproval: 50,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 9),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 10
+            },
+            {
+                date: new Date(2017, 4, 10),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 11),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 12),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 13),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 14),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 15),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 16),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 17),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 40
+            },
+            {
+                date: new Date(2017, 4, 18),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 5
+            },
+            {
+                date: new Date(2017, 4, 19),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 5
+            },
+            {
+                date: new Date(2017, 4, 20),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 5
+            },
+            {
+                date: new Date(2017, 4, 21),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 5
+            },
+            {
+                date: new Date(2017, 4, 22),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 5
+            },
+            {
+                date: new Date(2017, 4, 23),
+                InProgress: 10,
+                AwaitingApproval: 10,
+                Approved: 22,
+                Closed: 10,
+                Cancelled: 5
             }
         ];
 
@@ -138,5 +325,8 @@ export class Welcome {
         this.barchart.au["pragma-barchart"].viewModel.update();
         this.linechart.au["pragma-linechart"].viewModel.update();
         document.querySelector("pragma-scatterchart").au["pragma-scatterchart"].viewModel.update();
+        this.piechart.au["pragma-piechart"].viewModel.update();
+        this.areachart.au["pragma-areachart"].viewModel.update();
+        this.areachart.au["pragma-bubblechart"].viewModel.update();
     }
 }

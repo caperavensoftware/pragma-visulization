@@ -34,7 +34,7 @@ export class PragmaChartbase {
 
         this.marginLeft = 40;
         this.marginTop = 20;
-        this.marginBottom = 40;
+        this.marginBottom = 70;
 
         this.animationDuration = 500;
         this.animationDelay = 50;

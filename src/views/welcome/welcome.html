@@ -2,16 +2,20 @@
     <require from="./../../components/pragma-barchart/pragma-barchart"></require>
     <require from="./../../components/pragma-linechart/pragma-linechart"></require>
     <require from="./../../components/pragma-scatterchart/pragma-scatterchart"></require>
+    <require from="./../../components/pragma-piechart/pragma-piechart"></require>
+    <require from="./../../components/pragma-areachart/pragma-areachart"></require>
+    <require from="./../../components/pragma-bubblechart/pragma-bubblechart"></require>
 
     <h1>Welcome</h1>
     <pragma-barchart ref="barchart"  data.bind="data" x-field="title" id-field="id" y-field="value" y-label-rotation="-45" y-text-anchor="end"></pragma-barchart>
     <pragma-linechart ref="linechart" data.bind="data" x-field="title" y-field="value" number-of-y-ticks="2" ></pragma-linechart>
-    <pragma-scatterchart rel="scatterchart" data.bind="dateData" y-field="time" id-field="id" x-field="date" x-label-rotation="-45" x-text-anchor="end"></pragma-scatterchart>
+    <pragma-scatterchart rel="scatterchart" data.bind="dateData" y-field="time" id-field="id" x-field="date" x-label-rotation="-45" x-text-anchor="end" padding="25"></pragma-scatterchart>
+    <pragma-piechart rel="piechart" data.bind="data" id-field="id"></pragma-piechart>
+    <pragma-areachart rel="areachart" data.bind="statusOverTime" id-field="id"></pragma-areachart>
 
     <button click.delegate="addMore()">Add More</button>
     <button click.delegate="removeSum()">Remove Some</button>
     <button click.delegate="update()">Update</button>
-
 
     <ul>
         <li repeat.for="item of data">
