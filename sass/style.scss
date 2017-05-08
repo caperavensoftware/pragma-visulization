@@ -47,3 +47,31 @@ pragma-scatterchart {
     fill: red;
   }
 }
+
+pragma-piechart {
+  display: block;
+  margin: 1rem;
+  width: 600px;
+  height: 350px;
+
+  .arc text {
+        font: 10px sans-serif;
+        text-anchor: middle;
+        }
+
+   .arc path {
+        stroke: #fff;
+   }
+}
+
+pragma-areachart {
+  //display: block;
+  //width: 600px;
+  //height: 500px;
+  //margin: 1rem;
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+}
